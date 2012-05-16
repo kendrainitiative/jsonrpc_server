@@ -8,7 +8,8 @@ Drupal.service = function(endpoint, method, parameters, callback, id) {
     'type': "POST",
     'data': call,
     'success': function(data) {
-      parsed = Drupal.parseJson(data);
+      if (typeof data !== 'object') parsed = JSON.parse(data);
+      else parsed = data;
       callback(parsed['result'], parsed['error'], parsed['id']);
     }
   });
